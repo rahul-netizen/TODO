@@ -4,6 +4,9 @@ from datetime import datetime
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
+
+# to prevent FSADeprecationWarning: SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be disabled by default in the future warning
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # /// for relative path
 # //// for absolute path
 db = SQLAlchemy(app)
@@ -70,4 +73,5 @@ if __name__ == '__main__':
     app.run(debug=True)
 
 
+# use WSGI like gunicorn, waitress to serve the app
 # waitress-serve --listen=127.0.0.1:5000 embed_dash:app
